@@ -1,6 +1,6 @@
 h2 {
   font: 14px Arial, sans-serif;
-  color: #fff;
+  color: black;
   padding: 10px;
   text-align: center;
 }
@@ -18,7 +18,8 @@ body {
 
 #wrapper {
   height: 100%;
-  background-color: black;
+  background-color: grey;
+  color: black;
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -26,8 +27,8 @@ body {
 
 #menuContainer {
   width: 20%;
-  height: 100%;
   position: absolute;
+  height: 200%;
   top: 0;
   left: 0;
   background: #222;
@@ -39,21 +40,22 @@ body {
   border-top: 1px solid #333;
   cursor: pointer;
   padding: 10px 5px;
-  color: #bbb;
-  background: #1a1a1a;
+  color: black;
+  background-color: grey;
   font: 12px Arial, sans-serif;
 }
 
 #menuContainer li:hover {
-  background: #111;
+  background: grey;
   color: #ccc;
 }
 
 #layoutContainer {
   width: 80%;
   height: 100%;
-  background: #111;
-  color: #fff;
+  background: "grey";
+  background-color: grey;
+  color: black;
   position: absolute;
   top: 0;
   left: 20%;
@@ -68,4 +70,26 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+.container {
+  width: "500px";
+  min-height: 50vh;
+  color: black;
+  clear: both;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  text-shadow: black;
+  background-color: blanchedalmond;
+}
+.container input {
+  width: "100%";
+  clear: both;
+}
+.editlayout {
+  background-color: grey;
+  color: black;
+  min-height: 100vh;
+  text-align: center;
+  font-size: calc(10px +2vmin);
 }

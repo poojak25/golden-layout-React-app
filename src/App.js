@@ -1,74 +1,72 @@
-import logo from "./logo.svg";
 import "./App.css";
-import createlayout from "./createlayout";
-import GoldenLayoutComponent from "./goldenLayoutComponent";
-import "./goldenLayout-dependencies";
-import AppContext from "./appContext";
-import { Component, react, useEffect } from "react";
+import CreateLayout from "./createlayout";
+import React, { Component, useEffect } from "react";
+import { renderToString } from "react-dom/server";
 import $ from "jquery";
-import { myLayout } from "golden-layout";
+import Profile from "./profile";
+import { renderIntoDocument } from "react-dom/test-utils";
 class App extends Component {
-  render() {
-    const addElements = () => {
-      var config = {
-        content: [
-          {
-            type: "row",
-            content: [
-              {
-                type: "component",
-                title: "component 1",
-                componentName: "example",
-                componentState: {
-                  text:
-                    "Welcome to the dynamic Layout...You are in Component 1.In Order to add the other component you can drag and drop the components from left corner",
-                },
-              },
-              {
-                type: "component",
-                title: "Component 2",
-                componentName: "example",
-                componentState: {
-                  text:
-                    "Welcome to the dynamic Layout...You are in Component 2",
-                },
-                props: { value: "Welcome to Component2" },
-              },
-            ],
-          },
-        ],
-      };
-
-      var myLayout = new window.GoldenLayout(config, $("#layoutContainer"));
-
-      myLayout.registerComponent("example", function (container, createlayout) {
-        container.getElement().html("<h2>" + createlayout + "</h2>");
-      });
-
-      myLayout.init();
-
-      var addMenuItem = function (container, createlayout) {
-        var element = $("<li>" + this.props.getdata() + "</li>");
-        $("#menuContainer").append(element);
-
-        var newItemConfig = {
-          title: "component3",
-          type: "component",
-          componentName: "example",
-          componentState: { text: "Hello" },
-        };
-
-        myLayout.createDragSource(element, newItemConfig);
-      };
-
-      addMenuItem(createlayout);
-      //addMenuItem("Component 4", "This is fourth Component!");
+  componentDidMount() {
+    this.addElements();
+  }
+  //Create Layout Components.
+  addElements() {
+    var config = {
+      content: [
+        {
+          type: "row",
+          content: [
+            {
+              type: "component",
+              title: "component 1",
+              componentName: "example",
+              componentState: { text: renderToString(<CreateLayout />) },
+            },
+            {
+              type: "component",
+              title: "Component 2",
+              componentName: "example",
+              componentState: { text: renderToString(<CreateLayout />) },
+            },
+          ],
+        },
+      ],
     };
+    //Initialize the variable with GoldenLayout.
+    var myLayout = new window.GoldenLayout(config, $("#layoutContainer"));
+
+    //Register the Components using registerComponent method of GoldenLayout.
+    myLayout.registerComponent("example", function (container, state) {
+      container.getElement().html("<h1>" + state.text + "</h1>");
+    });
+
+    //Start the layout.
+    myLayout.init();
+
+    var addMenuItem = function (title, component) {
+      var element = $("<li>" + component + "</li>");
+      $("#menuContainer").append(element);
+      var newItemConfig = {
+        title: title,
+        type: "component",
+        componentName: "example",
+        componentState: { text: renderToString(<Profile />) },
+      };
+
+      //Create dynamic components.
+      myLayout.createDragSource(element, newItemConfig);
+    };
+
+    const comp = renderToString(<Profile />);
+    addMenuItem("Component 3", comp);
+    addMenuItem("Component 4", comp);
+  }
+  render() {
     return (
-      <div className="App">
-        <div id="wrapper"></div>
-        <div id="menuContainer"></div>
-        <div id="layoutContainer"></div>
+      <div>
+        <div id="wrapper" />
+        <div id="menuContainer" />
+        <div id="layoutContainer" />
       </div>
     );
   }

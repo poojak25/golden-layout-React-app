@@ -1,28 +1,26 @@
-import react, { Component } from "react";
-import $ from "jquery";
-import GoldenLayout from "golden-layout";
-import myLayout from "golden-layout";
-import componentDidMount from "react-dom";
-import App from "./App";
-//import createDragSource from "golden-layout";
-export class createlayout extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      form: "Hello",
-    };
-  }
-  disp() {
-    this.setState({
-      form: "Hello",
-    });
-  }
+import React, { Component } from "react";
+
+export default class CreateLayout extends Component {
   render() {
     return (
-      <div>
-        <App getdata={this.disp()} />
+      <div className="container">
+        <form name="f1">
+          <h2>
+            Name:<input type="text"></input>
+            <br />
+            <br />
+            Mob:<input type="number"></input>
+            <br />
+            <br />
+            Qualification: <br />
+            SSC:<input type="checkbox"></input>
+            <br />
+            HSC:<input type="checkbox"></input>
+            <br />
+            Graduation:<input type="checkbox"></input>
+          </h2>
+        </form>
       </div>
     );
   }
 }
-export default createlayout;
